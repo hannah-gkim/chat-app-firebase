@@ -1,7 +1,7 @@
-// import firebase from "firebase/app";
-import firebase from 'firebase/compat/app'; //< beta ver?
-// import "firebase/auth";
-import 'firebase/compat/auth';
+import firebase from "firebase/app";
+import "firebase/auth";
+// import firebase from 'firebase/compat/app'; //< beta ver?
+// import 'firebase/compat/auth';
 
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,6 +12,16 @@ const app = firebase.initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
 
-const auth = app.auth();
+export const auth = app.auth();
 
-export { auth, firebase, app as default };
+// const goolgeProvider = new firebase.auth.GoogleAuthProvider();
+// export const signInWithGoogle = () => {
+//   auth
+//     .signInWithPopup(goolgeProvider)
+//     .then((res) => {
+//       console.log(res.user);
+//     })
+//     .catch((error) => {
+//       console.log(error.message);
+//     });
+// };
