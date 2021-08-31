@@ -34,7 +34,8 @@ export default function Login() {
           }
         >
           <FacebookOutlined /> Sign In With Facebook
-        </div> */}
+        </div>
+        <br /> <br /> */}
         <button>Other Login</button>
       </div>
     </div>
