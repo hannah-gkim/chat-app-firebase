@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ChatEngine } from "react-chat-engine";
 import { auth } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
+// import ChatList from "./ChatList/ChatList";
 
 export default function Chats() {
   // const didMountRef = useRef(false);
@@ -43,11 +44,13 @@ export default function Chats() {
         setLoading(false);
       })
       .catch(() => {
+        //if no chat room exist yet
         let formdata = new FormData();
         formdata.append("email", user.email);
         formdata.append("username", user.email);
         formdata.append("secret", user.uid);
-        console.log("user.photourl", user.photoURL);
+
+        //Google user photo
         getFile(user.photoURL).then((avatar) => {
           formdata.append("avatar", avatar, avatar.name);
 
@@ -63,8 +66,10 @@ export default function Chats() {
       });
     // }
   }, [user, history]);
+  // <----------------------useEffect ends here
 
   if (!user || loading) return "Loading...";
+
   return (
     <div className="chats-page">
       <nav className="nav-bar">
@@ -73,12 +78,20 @@ export default function Chats() {
           Logout
         </div>
       </nav>
-      <ChatEngine
-        height="calc(100vh - 66px)"
-        projectID={process.env.REACT_APP_CHAT_ENGINE_ID}
-        userName={user.email}
-        userSecret={user.uid}
-      />
+      <div
+        style={{
+          color: "#ff59bb",
+        }}
+      >
+        <ChatEngine
+          height="calc(100vh - 66px)"
+          projectID={process.env.REACT_APP_CHAT_ENGINE_ID}
+          userName={user.email}
+          userSecret={user.uid}
+
+          // renderChatList={(chatEngineState) => <ChatList {...chatEngineState} />}
+        />
+      </div>
     </div>
   );
 }
